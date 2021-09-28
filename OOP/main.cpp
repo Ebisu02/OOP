@@ -1,17 +1,23 @@
-#include <iostream>
+//#include <iostream>//
 
-enum class Order {
-    FROM_CENTER, FROM_LEFT_UP_CORNER
+
+
+//*******************************   lab 2   ******************************//
+
+/*
+enum Order {
+    FROM_CENTER,
+    FROM_LEFT_UP_CORNER
 };
 
 void spiral(int** matrix, int size, int* array, Order order) {
     int y = -1, x = 0, d = 1, counter, modifier;
     switch (order) {
-    case Order::FROM_LEFT_UP_CORNER:
+    case FROM_LEFT_UP_CORNER:
         counter = -1;
         modifier = 1;
         break;
-    case Order::FROM_CENTER:
+    case FROM_CENTER:
         counter = size * size;
         modifier = -1;
     }
@@ -127,16 +133,58 @@ void SECOND() {
     delete[] buffArray;
 }
 
-int main() {
+void lab_2()
+{
     srand(time(0));
     std::cout << "First part of home work:\n";
-    FIRST(rand()%5 + 3);
+    FIRST(rand() % 5 + 3);
     std::cout << "\n\n\nSecond part of home work:\n";
     SECOND();
 }
 
-
-
+//-******************************   lab 2   ******************************-//
+int main() {
+    lab_2();
+}
 
 
 // Kto spizdit tot pidaras, osobenno Yasha
+
+
+
+*/
+
+#include <iostream>
+#include <Windows.h>
+
+using namespace std;
+
+class tPoint
+{
+    // Logic Part
+
+    private:
+        int xLoc;
+        int yLoc;
+        void resetLocation() { xLoc = 0, yLoc = 0; }
+        ~tPoint() { resetLocation(); };
+        tPoint() { xLoc = rand() % GetSystemMetrics(SM_CXSCREEN), yLoc = rand() % GetSystemMetrics(SM_CYSCREEN); };
+    public:
+        int get_xLocation() { return xLoc; };
+        int get_yLocation() { return yLoc; };
+        void setLocation(int x, int y) { xLoc = x, yLoc = y; };
+        void moveStraight();
+        void moveRandomly();
+
+
+    // Graph Part
+
+    private:
+        void print();
+        void setColor();
+};
+
+int main()
+{
+    return 0;
+}
