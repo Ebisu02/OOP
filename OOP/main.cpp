@@ -1,10 +1,8 @@
-//#include <iostream>//
+#include <iostream>
 
 
 
 //*******************************   lab 2   ******************************//
-
-/*
 enum Order {
     FROM_CENTER,
     FROM_LEFT_UP_CORNER
@@ -142,46 +140,95 @@ void lab_2()
     SECOND();
 }
 
-//-******************************   lab 2   ******************************-//
-int main() {
-    lab_2();
+//-******************************   lab 2  ******************************-//
+
+
+
+//-******************************   lab 3  ******************************-//
+#include <SFML/Graphics.hpp>
+#include <Windows.h>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <ctime>
+
+#include "tPoint.h"
+
+using namespace sf;
+
+
+//Tut tose bez piva pisano, a nado bilo s pivom!!!!
+void lab_3()
+{
+    Clock clock;
+
+    // Setting antialiasing
+    ContextSettings settings;
+    settings.antialiasingLevel = 16;
+
+    // Getting screen metrics
+    int scrX = GetSystemMetrics(SM_CXSCREEN);
+    int scrY = GetSystemMetrics(SM_CYSCREEN);
+
+    // Generating window
+    RenderWindow window(VideoMode(scrX, scrY), "Programming lab. work #12", Style::Default, settings);
+
+    // Setting frame Limit
+    window.setFramerateLimit(300);
+
+    srand(time(nullptr));
+
+    // Make Point object
+    const int amountOfPoints = 10; 
+
+    int r[amountOfPoints], b[amountOfPoints], g[amountOfPoints];
+    int xStart[amountOfPoints], yStart[amountOfPoints];
+
+    for (int i = 0; i < amountOfPoints; ++i)
+    {
+        r[i] = rand() % 256;
+        g[i] = rand() % 256;
+        b[i] = rand() % 256;
+        xStart[i] = rand() % window.getSize().x;
+        yStart[i] = rand() % window.getSize().y;
+    }
+
+    tPoint point[amountOfPoints];
+    for (int i = 0; i < amountOfPoints; ++i)
+    {
+        point[i].make_point(window);
+        point[i].setColor(r[i], g[i], b[i]);
+        point[i].setCoords(xStart[i], yStart[i]);
+
+    }
+
+    while (window.isOpen())
+    {
+        Event event;
+
+        while (window.pollEvent(event))
+        {
+            if (event.type == Event::Closed)
+                window.close();
+        }
+
+        window.clear(Color::White);
+
+        for (int i = 0; i < amountOfPoints; ++i) {
+            point[i].move_straight();
+            point[i].print();
+        }
+
+        window.display();
+    }
+
+    return;
 }
 
+//-******************************   lab 3 ******************************-//
 
-// Kto spizdit tot pidaras, osobenno Yasha
-
-
-
-*/
-
-#include <iostream>
-#include <Windows.h>
-
-using namespace std;
-
-class tPoint
+class tSection :tPoint
 {
-    // Logic Part
-
-    private:
-        int xLoc;
-        int yLoc;
-        void resetLocation() { xLoc = 0, yLoc = 0; }
-        ~tPoint() { resetLocation(); };
-        tPoint() { xLoc = rand() % GetSystemMetrics(SM_CXSCREEN), yLoc = rand() % GetSystemMetrics(SM_CYSCREEN); };
-    public:
-        int get_xLocation() { return xLoc; };
-        int get_yLocation() { return yLoc; };
-        void setLocation(int x, int y) { xLoc = x, yLoc = y; };
-        void moveStraight();
-        void moveRandomly();
-
-
-    // Graph Part
-
-    private:
-        void print();
-        void setColor();
+    
 };
 
 int main()
